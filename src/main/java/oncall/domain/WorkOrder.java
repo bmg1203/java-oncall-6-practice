@@ -30,6 +30,9 @@ public class WorkOrder {
         Stack<String> week = new Stack<>();
         Stack<String> holiday = new Stack<>();
         for (int i = 1, day = startDay; i <= dateInfo.getLastDay(); i++, day++) {
+            if (day > SUNDAY) {
+                day = day % SUNDAY;
+            }
             //휴일
             if (day == SATURDAY || day == SUNDAY || holidays.isHoliday(dateInfo.getMonth(), i)) {
                 addHolidayWorker(workOrder, holiday, employees.getHolidayWorker());
