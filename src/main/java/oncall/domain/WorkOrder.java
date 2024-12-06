@@ -11,11 +11,13 @@ public class WorkOrder {
 
     private static final int SATURDAY = DayOfWeek.SATURDAY.getValue();
     private static final int SUNDAY = DayOfWeek.SUNDAY.getValue();
+
     private final Deque<String> workOrder;
+
     private int weekIndex = 0;
     private int holidayIndex = 0;
-    private Stack<String> tempWeekSave = new Stack<>();
-    private Stack<String> tempHolidaySave = new Stack<>();
+    private final Stack<String> tempWeekSave = new Stack<>();
+    private final Stack<String> tempHolidaySave = new Stack<>();
     private static final Holidays holidays = new Holidays();
 
     public WorkOrder(DateInfo dateInfo, Employees employees) {
