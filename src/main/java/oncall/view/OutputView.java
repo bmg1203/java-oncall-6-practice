@@ -10,7 +10,7 @@ import oncall.domain.WorkOrder;
 
 public class OutputView {
 
-    private static final int SUNDAY = DayOfWeek.SATURDAY.getValue();
+    private static final int SUNDAY = DayOfWeek.SUNDAY.getValue();
 
     public void workOrderOutput(WorkOrder workOrder, DateInfo dateInfo) {
         int startDay = dateInfo.getDayOfTheWeek();
@@ -18,10 +18,11 @@ public class OutputView {
         Deque<String> workers = workOrder.getWorkOrder();
 
         for (int i = 1, day = startDay; i <= dateInfo.getLastDay(); i++, day++) {
-            String curWorker = workers.remove();
             if (day > SUNDAY) {
                 day = day % SUNDAY;
             }
+
+            String curWorker = workers.remove();
             String dayOfTheWeek = getDayOfTheWeek(day);
             //법정 공휴일
             if (holidays.isHoliday(dateInfo.getMonth(), i)) {
