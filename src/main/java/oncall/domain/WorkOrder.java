@@ -10,7 +10,7 @@ import oncall.constants.Holidays;
 public class WorkOrder {
 
     private static final int SATURDAY = DayOfWeek.SATURDAY.getValue();
-    private static final int SUNDAY = DayOfWeek.SATURDAY.getValue();
+    private static final int SUNDAY = DayOfWeek.SUNDAY.getValue();
     private final Deque<String> workOrder;
     private int weekIndex = 0;
     private int holidayIndex = 0;
@@ -33,6 +33,7 @@ public class WorkOrder {
             if (day > SUNDAY) {
                 day = day % SUNDAY;
             }
+
             //휴일
             if (day == SATURDAY || day == SUNDAY || holidays.isHoliday(dateInfo.getMonth(), i)) {
                 addHolidayWorker(workOrder, holiday, employees.getHolidayWorker());
@@ -87,13 +88,13 @@ public class WorkOrder {
         }
 
         if (!week.isEmpty()) {
-            holidayIndexAdder(weekWorker);
+            weekIndexAdder(weekWorker);
             workOrder.add(week.pop());
             return;
         }
 
         workOrder.add(curWorker);
-        holidayIndexAdder(weekWorker);
+        weekIndexAdder(weekWorker);
     }
 
     private void weekIndexAdder(List<String> weekWorker) {
