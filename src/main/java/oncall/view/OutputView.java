@@ -18,13 +18,12 @@ public class OutputView {
         Deque<String> workers = workOrder.getWorkOrder();
 
         for (int i = 1, day = startDay; i <= dateInfo.getLastDay(); i++, day++) {
-            if (day > SUNDAY) {
+            if (day > SUNDAY)
                 day = day % SUNDAY;
-            }
 
             String curWorker = workers.remove();
             String dayOfTheWeek = getDayOfTheWeek(day);
-            //법정 공휴일
+
             if (holidays.isHoliday(dateInfo.getMonth(), i)) {
                 System.out.printf(OutputPrompts.DAY_AND_EMPLOYEE_HOLIDAY_OUTPUT.getPrompt(), dateInfo.getMonth(), i, dayOfTheWeek, curWorker);
             }
