@@ -10,6 +10,7 @@ import oncall.domain.WorkOrder;
 
 public class OutputView {
 
+    private static final int SATURDAY = DayOfWeek.SATURDAY.getValue();
     private static final int SUNDAY = DayOfWeek.SUNDAY.getValue();
 
     public void workOrderOutput(WorkOrder workOrder, DateInfo dateInfo) {
@@ -24,7 +25,7 @@ public class OutputView {
             String curWorker = workers.remove();
             String dayOfTheWeek = getDayOfTheWeek(day);
 
-            if (holidays.isHoliday(dateInfo.getMonth(), i)) {
+            if (holidays.isHoliday(dateInfo.getMonth(), i) && day != SATURDAY && day != SUNDAY) {
                 System.out.printf(OutputPrompts.DAY_AND_EMPLOYEE_HOLIDAY_OUTPUT.getPrompt(), dateInfo.getMonth(), i, dayOfTheWeek, curWorker);
             }
             if (!holidays.isHoliday(dateInfo.getMonth(), i)) {
