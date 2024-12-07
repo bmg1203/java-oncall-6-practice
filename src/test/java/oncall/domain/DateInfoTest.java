@@ -1,7 +1,9 @@
 package oncall.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import oncall.constants.ErrorMessage;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -149,5 +151,29 @@ class DateInfoTest {
 
         //then
         assertThat(dateInfo.getDayOfTheWeek()).isEqualTo(7);
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {-1, 0, 15})
+    void 월_예외_테스트(int month) {
+        //given
+        String dayOfTheWeek = "월";
+
+        //when, then
+        assertThatThrownBy(() -> new DateInfo(month, dayOfTheWeek))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(ErrorMessage.INPUT_ERROR.getMessage());
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"월요일", "가", "1"})
+    void 요알_예외_테스트(String dayOfTheWeek) {
+        //given
+        int month = 3;
+
+        //when, then
+        assertThatThrownBy(() -> new DateInfo(month, dayOfTheWeek))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(ErrorMessage.INPUT_ERROR.getMessage());
     }
 }
